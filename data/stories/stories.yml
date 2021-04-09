@@ -1,0 +1,20 @@
+version: "2.0"
+
+stories:
+  - story: happy path
+    steps:
+      - intent: mood_great
+      - action: utter_happy
+
+  - story: diagnosis + affirm path
+    steps:
+      - intent: indicate_emotions
+      - action: action_clarify_emotions
+      - intent: affirm
+      - action: action_why_emotions
+
+  - story: diagnosis + deny path
+    steps:
+      - intent: indicate_emotions
+      - action: action_clarify_emotions
+      - intent: deny

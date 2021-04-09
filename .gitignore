@@ -1,0 +1,6 @@
+models/*
+__pycache__/
+Pipfile
+rasa_core.log
+custom_component/model.h5
+venv

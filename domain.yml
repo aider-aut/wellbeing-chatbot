@@ -1,0 +1,145 @@
+version: "2.0"
+
+intents:
+  - greet
+  - giving_name
+  - goodbye
+  - affirm
+  - deny
+  - thankful
+  - mood_great
+  - emotions_feedback
+  - indicate_emotions
+  - indicate_good_reasons
+  - indicate_bad_reasons
+  - bot_challenge
+  - unclear_answer
+  - out_of_scope
+  - enter_data:
+      use_entities: []
+
+entities:
+  - emotions
+  - sad
+  - angry
+  - name
+  - struggle
+  - bad_reason
+  - area_of_life
+  - coping_strategy
+  - unhealthy_thoughts
+
+actions:
+  - action_why_emotions
+  - action_response_to_emotions
+  - action_set_emotion
+  - action_greeting_with_name
+  - action_clarify_emotions
+  - action_submit_diagnosis_form
+  - action_default_fallback
+
+slots:
+  emotions:
+    type: text
+    auto_fill: True
+  area_of_life:
+    type: any
+  coping_strategy:
+    type: any
+  unhealthy_thoughts:
+    type: any
+
+forms:
+  diagnosis_form:
+    area_of_life:
+      - type: from_entity
+        entity: area_of_life
+    coping_strategy:
+      - type: from_entity
+        entity: coping_strategy
+    unhealthy_thoughts:
+      - type: from_entity
+        entity: unhealthy_thoughts
+
+responses:
+  utter_greet:
+    - text: "Hey! How are you?"
+
+  utter_sorry_to_hear:
+    - text: "Sorry to hear that."
+
+  utter_cheer_up:
+    - text: "Hey, remember that at some point, things will likely to get better."
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great, carry on!"
+
+  utter_goodbye:
+    - text: "Bye"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+  utter_quote_about_sadness:
+    - text: "Here is a quote about sadness: Tears are words that need to be written. -Paulo Coelho."
+
+  utter_quote_about_anger:
+    - text: "Here is a quote about anger: Where there is anger, there is always pain underneath. -Eckhart Tolle."
+
+  utter_ask_for_clarification:
+    - text: "Can you be more specific?"
+
+  utter_out_of_scope:
+    - text: "Sorry, I cannot answer that."
+
+  utter_ask_to_rephrase:
+    - text: "Sorry, Can you rephrase that?"
+
+  utter_ask_area_of_life:
+    - text: "What area of your life had been affected by your current state of mind?"
+  
+  utter_ask_unhealthy_thoughts:
+    - text: "Are you having unhealthy thoughts?"
+  
+  utter_ask_coping_strategy:
+    - text: "Here are some common coping strategies that people do to deal with their personal struggles. 
+    \nDo you find yourself doing any of such activities?"
+
+  utter_ask_for_psychologist:
+    - text: "Would you like to talk to a psychologist?"
+
+  utter_ask_continue_diagnosis:
+    - text: Do you still want to continue with the diagnosis?
+  
+  utter_default:
+    - text: Sorry, I didn't get that 🤷. Could you please rephrase?
+    - text: I didn't understand, could you rephrase that?
+    - text: I'm sorry, but I didn't understand you. Could you please rephrase what you
+        just said?
+    - text: I'm afraid I didn't get what you just said. Could you rephrase that?
+    - text: I didn't quite get that, could you rephrase your message?
+    - text: Could you rephrase your message? I didn't get it, I'm sorry.
+  utter_restart_with_button:
+    - buttons:
+      - payload: /restart
+        title: Restart
+      text: Click the button below if you want to start over.
+
+  utter_react_negative:
+    - text: 😕
+    - text: 😞
+    - text: 😥
+    - text: 😢
+    
+  utter_react_positive:
+    - text: 😄
+    - text: 😊
+    - text: 👏
+    - text: 😍
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,16 @@
+[
+  {
+    "text": "perfect",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "mood_great",
+        "start": 0,
+        "end": 7,
+        "confidence_entity": 0.7673231363296509,
+        "value": "perfect",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  }
+]

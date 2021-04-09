@@ -1,0 +1,18 @@
+[
+  {
+    "text": "good afternoon",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.6854123473167419
+    }
+  },
+  {
+    "text": "perfect",
+    "intent": "thankful",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.8658543229103088
+    }
+  }
+]

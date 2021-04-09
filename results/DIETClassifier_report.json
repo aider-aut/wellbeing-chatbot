@@ -1,0 +1,34 @@
+{
+  "emotions": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 23,
+    "confused_with": {}
+  },
+  "mood_great": {
+    "precision": 0.9767441860465116,
+    "recall": 1.0,
+    "f1-score": 0.988235294117647,
+    "support": 42,
+    "confused_with": {}
+  },
+  "micro avg": {
+    "precision": 0.9848484848484849,
+    "recall": 1.0,
+    "f1-score": 0.9923664122137404,
+    "support": 65
+  },
+  "macro avg": {
+    "precision": 0.9883720930232558,
+    "recall": 1.0,
+    "f1-score": 0.9941176470588236,
+    "support": 65
+  },
+  "weighted avg": {
+    "precision": 0.9849731663685152,
+    "recall": 1.0,
+    "f1-score": 0.9923981900452488,
+    "support": 65
+  }
+}

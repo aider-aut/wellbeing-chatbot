@@ -1,0 +1,26 @@
+version: "2.0"
+rules:
+  - rule: activate diagnosis form
+    steps:
+      - intent: indicate_bad_reasons
+      - action: action_response_to_emotions
+      - action: diagnosis_form
+      - active_loop: diagnosis_form
+
+  - rule: deactivate diagnosis form
+    condition:
+      - active_loop: diagnosis_form
+    steps:
+      - active_loop: null
+      - action: action_submit_diagnosis_form
+
+  - rule: continue diagnosis form
+    condition:
+      - active_loop: diagnosis_form
+    steps:
+      - action: utter_ask_continue_diagnosis
+      - intent: affirm
+      - action: utter_happy
+      - action: diagnosis_form
+      - active_loop: null
+      - action: action_submit_diagnosis_form

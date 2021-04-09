@@ -1,0 +1,41 @@
+version: "2.0"
+rules:
+  - rule: greet
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - rule: giving name
+    steps:
+      - intent: giving_name
+      - action: action_greeting_with_name
+
+  - rule: Say goodbye anytime the user says goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Say 'I am a bot' anytime the user challenges
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  - rule: carry on when feeling well
+    steps:
+      - intent: indicate_good_reasons
+      - action: utter_happy
+
+  - rule: ask for clarification
+    steps:
+      - intent: unclear_answer
+      - action: utter_ask_for_clarification
+
+  - rule: ask to clarify for out of scope
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+
+  - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+    steps:
+      - intent: nlu_fallback
+      - action: utter_ask_to_rephrase

@@ -1,0 +1,596 @@
+version: "2.0"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hey hey
+      - hello
+      - hi
+      - hi hi
+      - hi there
+      - hi again
+      - hello there
+      - hey there
+      - good morning
+      - good evening
+      - good afternoon
+      - goodmorning
+      - goodevening
+      - goodafternoon
+      - let's go
+      - hey dude
+
+  - intent: giving_name
+    examples: |
+      - my name is [ashley](name)
+      - my name is [daniel](name)
+      - name is [ashley](name)
+      - name is [daniel](name)
+      - im [ashley](name)
+      - im [daniel](name)
+      - i am [ashley](name)
+      - im [daniel](name)
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
+      - see you
+      - See u
+      - See U
+      - See you
+      - see ya
+      - bye for now
+      - farewell
+      - bye was nice talking to you
+      - bye, it was nice talking to you
+      - bye, have a nice day
+      - bye, see u soon
+      - bye bye bot
+      - bye bot
+      - bye!
+
+  - intent: affirm
+    examples: |
+      - Accept
+      - Awesome!
+      - Good
+      - Great
+      - I accept
+      - I accept.
+      - I agree
+      - I am using it
+      - I changed my mind. I want to accept it
+      - I do
+      - I get it
+      - I guess so
+      - I have used it in the past
+      - I will
+      - I'd absolutely love that
+      - I'm sure I will!
+      - I'm using it
+      - Nice
+      - OK
+      - Ofcourse
+      - Oh yes
+      - Oh, ok
+      - Ok
+      - Ok let's start
+      - Ok.
+      - Okay
+      - Okay!
+      - PLEASE
+      - SURE
+      - Sure
+      - Sweet
+      - That would be great
+      - YES
+      - YUP
+      - Yea
+      - Yeah
+      - Yeah sure
+      - Yep
+      - Yep that's fine
+      - Yep!
+      - Yepp
+      - Yes
+      - Yes I do
+      - Yes please
+      - Yes please!
+      - Yes, I accept
+      - Yes.
+      - Yup
+      - a little
+      - absolutely
+      - accept
+      - accepted
+      - agreed
+      - ah ok
+      - alright
+      - alright, cool
+      - amayzing
+      - amazing!
+      - awesome
+      - awesome!
+      - confirm
+      - cool story bro
+      - definitely yes without a doubt
+      - done
+      - fair enough
+      - fcourse
+      - fine
+      - fuck yeah!
+      - go
+      - go ahead
+      - go for it
+      - going super well
+      - good.
+      - great
+      - great lets do that
+      - great!
+      - hell yeah
+      - hell yes
+      - hm, i'd like that
+      - how nice!
+      - i accept
+      - i agree
+      - i am!
+      - i want that
+      - i will!
+      - it is ok
+      - its okay
+      - ja
+      - ja cool
+      - ja thats great
+      - jezz
+      - jo
+      - k
+      - kk
+      - lets do it
+      - lets do this
+      - not bad
+      - of course
+      - ofcoure i do
+      - ofcourse
+      - oh awesome!
+      - oh cool
+      - oh good !!
+      - oh super
+      - ok
+      - ok cool
+      - ok fine
+      - ok friend
+      - ok good
+      - ok great
+      - ok i accept
+      - ok sara
+      - ok, I behave now
+      - ok, I understood
+      - ok, Sara
+      - ok...
+      - okay
+      - okay cool
+      - okay sure
+      - okay..
+      - oki doki
+      - okie
+      - ook
+      - oui
+      - perfect
+      - please
+      - si
+      - sort of
+      - sure
+      - sure thing
+      - sure!
+      - that is cool
+      - that ok
+      - that sounds fine
+      - that's great
+      - thats fine
+      - thats good
+      - thats great
+      - top
+      - uh-huh
+      - very much
+      - well yes
+      - y
+      - ya
+      - ya cool
+      - ya go for it
+      - ya i want
+      - ya please
+      - ya thats cool
+      - yaah
+      - yap
+      - yaps
+      - yas
+      - yay
+      - ye
+      - ye splease
+      - yea
+      - yeah
+      - yeah do that
+      - yeah sure
+      - yeah'=
+      - yeah, why not
+      - yeeeeezzzzz
+      - yeeees
+      - yep
+      - yep i want that
+      - yep if i have to
+      - yep please
+      - yep that's nice
+      - yep thats cool
+      - yep, will do thank you
+      - yep. :/
+      - yes
+      - yes ...
+      - yes I do
+      - yes accept please
+      - yes baby
+      - yes cool
+      - yes give me information
+      - yes go ahead
+      - yes go for it
+      - yes great
+      - yes i accept
+      - yes i agree
+      - yes i have built a bot before
+      - yes i have!
+      - yes it is
+      - yes it was okay
+      - yes of course
+      - yes pleae
+      - yes please
+      - yes please!
+      - yes pls
+      - yes sirfr
+      - yes that's great
+      - yes that's what i want
+      - yes you can
+      - yes'
+      - yes, I'd love to
+      - yes, cool
+      - yes, give me information, please
+      - yes,i am
+      - yes.
+      - yesh
+      - yess
+      - yessoo
+      - yesss
+      - yesssss
+      - yesyestyes
+      - yesyesyes
+      - yez
+      - yop
+      - you asked me a yes or no question, which i answered with yes
+      - you got me, I accept, if you want me to
+      - yres
+      - ys
+      - yup
+      - yyeeeh
+      - Okay cool
+      - ok..
+      - considering
+      - More a less
+      - cool beans
+      - sounds good!
+      - really
+
+  - intent: deny
+    examples: |
+      - I don't want to
+      - I don't want to give it to you
+      - I don't want to say
+      - I dont want to tell
+      - I'm not giving you my email address
+      - I'm not going to give it to you
+      - NEIN
+      - NO
+      - NO DON"T WANT THIS!
+      - Nah
+      - Neither
+      - Never
+      - Nevermind
+      - No
+      - No thank you
+      - No, not really.
+      - No, thank you
+      - No.
+      - Nopes
+      - Not really
+      - absolutely not
+      - decline
+      - definitely not
+      - deny
+      - i decline
+      - i don not like this
+      - i don't think so
+      - i don't want either of those
+      - i don't want to
+      - i don't want to give you my email
+      - i dont want to
+      - i dont want to accept :P lol
+      - i guess it means - no
+      - i'm afraid not
+      - i'm not sure
+      - it is going pretty badly
+      - it sucks
+      - it sux
+      - n
+      - na
+      - nah
+      - nah I'm good
+      - nah not for me
+      - nah, first time
+      - nah, i'm good
+      - nehi
+      - nein
+      - neither
+      - never
+      - never mind
+      - no
+      - no :(
+      - no I dont want
+      - no I haven't decided yet if I want to sign up
+      - no and no again
+      - no bots at all
+      - no go
+      - no i can't
+      - no i don't accept
+      - no i dont want to
+      - no i dont want to accept :P lol
+      - no i won't
+      - no ma'am
+      - no sir
+      - no sorry
+      - no thank s
+      - no thank you
+      - no thanks
+      - no way
+      - no you did it wrong
+      - no!!!!
+      - no, i hate it
+      - no, my frst time
+      - no, thank you
+      - no, thanks
+      - no, thankyou
+      - no. u r idiot
+      - non
+      - noooooooooo
+      - noooooooooooooooooooooooooooooooooooooooo
+      - nop
+      - nope
+      - nope!
+      - nope. i am good
+      - not going well at all
+      - not really
+      - not right now
+      - not yet
+      - nö
+      - sorry not right now
+      - still dont want to tell
+      - thanks but no thanks
+      - this sucks
+      - very bad
+      - I do not need help installing
+      - I don't wanna tell the name of my company
+      - no stop
+      - stop it, i do not care!!!
+      - none of them
+      - I don't agree
+
+  - intent: thankful
+    examples: |
+      - thanks
+      - thank you
+      - perfect
+      - thank you so much
+      - thank you very much
+      - thanks for that
+      - thanks for doing this
+      - thanks for everything
+      - thanks for the help
+      - thanks a lot
+      - cheers
+      - great, thanks
+      - amazing, thanks
+      - cool, thanks
+      - cool, thank you
+
+  - intent: unclear_answer
+    examples: |
+      - not sure
+      - i am not sure
+      - i don't understand
+      - i don't quite get it
+      - i don't get it
+      - i am confused
+      - im a bit confused
+      - because
+      - cuz
+
+  - intent: mood_great
+    examples: |
+      - [perfect](mood_great)
+      - [great](mood_great)
+      - [amazing](mood_great)
+      - feeling like a king
+      - [wonderful](mood_great)
+      - [I am feeling very good](mood_great)
+      - [im feeling good](mood_great)
+      - [im feeling much better](mood_great)
+      - [I am great](mood_great)
+      - [im great](mood_great)
+      - [I am amazing](mood_great)
+      - [im amazing](mood_great)
+      - I am going to save the world
+      - im going to save the world
+      - i am doing much better
+      - [super stoked](mood_great)
+      - [extremely good](mood_great)
+      - [so so perfect](mood_great)
+      - [so good](mood_great)
+      - [so perfect](mood_great)
+      - [better](mood_great)
+      - [much better](mood_great)
+      - [pretty ok](mood_great)
+
+  - intent: indicate_emotions
+    examples: |
+      - im [sad](emotions)
+      - im [angry](emotions)
+      - im [mad](emotions)
+      - im [joyful](emotions)
+      - i am [scared](emotions)
+      - i am feeling [fearful](emotions)
+      - i am [sad](emotions)
+      - i am feeling [angry](emotions)
+      - i am feeling [sad](emotions)
+      - i am feeling [joyful](emotions)
+      - i am feeling [disgust](emotions)
+      - i am feeling [surprised](emotions)
+      - i am feeling [shameful](emotions)
+      - i am feeling [envious](emotions)
+      - i am feeling [loved](emotions)
+      - i am feeling [amused](emotions)
+      - i am feeling [admired](emotions)
+      - i am feeling [adored](emotions)
+      - i am feeling [awkward](emotions)
+      - i am feeling [disappointed](emotions)
+      - i am feeling [relieved](emotions)
+      - i am feeling [horrified](emotions)
+      - i am feeling [excited](emotions)
+      - i am feeling [craving](emotions)
+
+  - intent: emotions_feedback
+    examples: |
+      - because my business is not doing well
+      - because my business is failing
+      - because i am broke
+      - because im broke
+      - because i am running out of money
+      - because i ran out of money
+      - because i have no money
+      - because i am going through a divorce
+      - because my wife has cheated on me
+      - because my wife has left me
+      - because im rich
+      - because i am rich
+      - because im doing well
+      - because i am doing well
+      - because im feeling good
+      - because i am feeling good
+      - because im well
+      - because i am well
+
+  - intent: indicate_bad_reasons
+    examples: |
+      - because my business is not doing well
+      - because my business is [failing](bad_reason)
+      - because i am [broke](bad_reason)
+      - because im [broke](bad_reason)
+      - because i am running [out of money](bad_reason)
+      - because i ran [out of money](bad_reason)
+      - because i have no money
+      - because i am going through a divorce
+      - because my wife has [cheated](bad_reason) on me
+      - because my wife has [left](bad_reason) me
+
+  - intent: indicate_good_reasons
+    examples: |
+      - because im rich
+      - because i am rich
+      - because im doing well
+      - because i am doing well
+      - because im feeling good
+      - because i am feeling good
+      - because im well
+      - because i am well
+
+  - lookup: sad
+    examples: |
+      - dismal
+      - bereaved
+      - down in dumps
+      - hurting
+      - in doldrums
+      - pensive
+      - blues
+      - melancholy
+      - heartbroken
+      - mournful
+      - sorry
+      - morose
+      - low
+      - languished
+      - gloomy
+      - glum
+      - grieved
+      - troubled
+      - weeping
+      - despondent
+      - despairing
+      - doleful
+      - down
+      - disconsolate
+      - cheerless
+
+  - lookup: angry
+    examples: |
+      - irate
+      - annoyed
+      - vexed
+      - irritated
+      - exasperated
+      - indignant
+      - aggrieved
+      - irked
+      - piqued
+      - displeased
+      - provoked
+      - galled
+      - resentful
+      - ferocious
+      - mad
+      - maddened
+      - wrathful
+      - heated
+
+  - lookup: emotions
+    examples: |
+      - scared
+      - angry
+      - sad
+      - joyful
+      - disgust
+      - surprised
+      - shameful
+      - envious
+      - loved
+      - amused
+      - admired
+      - adored
+      - awkward
+      - disappointed
+      - relieved
+      - horrified
+      - excited
+      - craving
+
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
