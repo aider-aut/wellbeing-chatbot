@@ -6,25 +6,34 @@ import typing
 from typing import Any, Optional, Text, Dict, List, Type
 
 from tensorflow import keras
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 from rasa.nlu.config import RasaNLUModelConfig
 
-from keras.preprocessing.sequence import pad_sequences
-from keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import Tokenizer
 from rasa.shared.nlu.training_data.message import Message
 from rasa.shared.nlu.training_data.training_data import TrainingData
+import platform
+import pickle
 
 
-import os
+myMacPath = "/Users/daniel/Projects/rasa/wellbeingchatbot/custom_component/"
+myWindowsPath = "C:\\Users\Daniel\\Projects\wellbeing-chatbot\\custom_component\\"
+path = ''
+if(platform.system() == "Darwin"):
+    path = myMacPath
+elif (platform.system() == "Windows"):
+    path = myWindowsPath
 
-model = load_model(
-    '/Users/daniel/Projects/rasa/wellbeingchatbot/custom_component/model.h5')
+model = load_model(path + "model.h5")
+with open(path + 'tokenizer.pkl','rb') as f:
+    tokenizer = pickle.load(f)
+
 POSITIVE = "POSITIVE"
 NEGATIVE = "NEGATIVE"
 NEUTRAL = "NEUTRAL"
 SENTIMENT_THRESHOLDS = (0.4, 0.7)
 SEQUENCE_LENGTH = 300
-tokenizer = Tokenizer()
 
 
 class SentimentAnalyzer(Component):
@@ -76,8 +85,6 @@ class SentimentAnalyzer(Component):
         return label
 
     def predict(self, text):
-        print("input: ", text)
-
         score = 0
         label = NEUTRAL
 
@@ -103,11 +110,10 @@ class SentimentAnalyzer(Component):
         of components previous to this one. """
         features = {**message.as_dict_nlu()}
         if "text_tokens" in features.keys():
-            features["text_tokens"] = [t.text for t in features["text_tokens"]]
-            print('text: ', features["text_tokens"])
+            text = [t.text for t in features["text_tokens"]]
+            print('text: ', text)
             processed_text = pad_sequences(
-                tokenizer.texts_to_sequences(features["text_tokens"]), maxlen=SEQUENCE_LENGTH)
-            print('processedText: ', processed_text)
+                tokenizer.texts_to_sequences(text), maxlen=SEQUENCE_LENGTH)
             sentiment = self.predict(text=processed_text)
             print("sentiment: ", sentiment)
             entity = self.convert_to_rasa(

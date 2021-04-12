@@ -9,12 +9,13 @@ intents:
   - thankful
   - mood_great
   - emotions_feedback
-  - indicate_emotions
-  - indicate_good_reasons
-  - indicate_bad_reasons
+  - indicate_emotions_of_concern
+  - provide_reason
+  - human_handoff
   - bot_challenge
   - unclear_answer
   - out_of_scope
+  - job_function
   - enter_data:
       use_entities: []
 
@@ -24,7 +25,6 @@ entities:
   - angry
   - name
   - struggle
-  - bad_reason
   - area_of_life
   - coping_strategy
   - unhealthy_thoughts
@@ -48,6 +48,8 @@ slots:
     type: any
   unhealthy_thoughts:
     type: any
+  job_function:
+    type: any
 
 forms:
   diagnosis_form:
@@ -68,6 +70,10 @@ responses:
   utter_sorry_to_hear:
     - text: "Sorry to hear that."
 
+  utter_ask_more_details:
+    - text: Could you be more specific?
+    - text: Can you tell me more?
+
   utter_cheer_up:
     - text: "Hey, remember that at some point, things will likely to get better."
 
@@ -79,6 +85,9 @@ responses:
 
   utter_goodbye:
     - text: "Bye"
+
+  utter_contact_email:
+    - text: You can’t speak to a human directly in this chat, but you can email Vinay Singh, our Machine Learning engineer, at vinay@aider.ai for any feedback regarding this chatbot.
 
   utter_iamabot:
     - text: "I am a bot, powered by Rasa."

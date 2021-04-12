@@ -11,7 +11,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet, EventType, ConversationPaused
+from rasa_sdk.events import SlotSet, EventType, ConversationPaused, UserUtteranceReverted
 
 
 def _ReadLookUps(path):
@@ -57,7 +57,7 @@ class ActionClarifyEmotions(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         emotion = tracker.get_slot("emotions")
         dispatcher.utter_message(
-            text="Am I correct in that you are feeling {}?".format(emotion))
+            text="Am I correct in that you are feeling '{}'?".format(emotion))
         return []
 
 
@@ -73,7 +73,7 @@ class ActionWhyEmotions(Action):
         emotion = tracker.get_slot("emotions")
 
         dispatcher.utter_message(
-            text="Why are you feeling {}?".format(emotion))
+            text="Would you like to share with me for the reason that you are feeling '{}'?".format(emotion))
 
         return []
 

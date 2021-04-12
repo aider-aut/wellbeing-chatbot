@@ -20,11 +20,6 @@ rules:
       - intent: bot_challenge
       - action: utter_iamabot
 
-  - rule: carry on when feeling well
-    steps:
-      - intent: indicate_good_reasons
-      - action: utter_happy
-
   - rule: ask for clarification
     steps:
       - intent: unclear_answer
