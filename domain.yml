@@ -39,29 +39,29 @@ actions:
   - action_default_fallback
 
 slots:
+  area_of_life:
+    type: text
+    influence_conversation: true
+  coping_strategy:
+    type: text
+    influence_conversation: true
+  unhealthy_thoughts:
+    type: text
+    influence_conversation: true
   emotions:
     type: text
     auto_fill: True
-  area_of_life:
-    type: any
-  coping_strategy:
-    type: any
-  unhealthy_thoughts:
-    type: any
   job_function:
     type: any
 
 forms:
   diagnosis_form:
     area_of_life:
-      - type: from_entity
-        entity: area_of_life
+    - type: from_text
     coping_strategy:
-      - type: from_entity
-        entity: coping_strategy
+    - type: from_text
     unhealthy_thoughts:
-      - type: from_entity
-        entity: unhealthy_thoughts
+    - type: from_text
 
 responses:
   utter_greet:
@@ -85,6 +85,10 @@ responses:
 
   utter_goodbye:
     - text: "Bye"
+
+  utter_thankful:
+    - text: "Thanks for talking to me today! 😊"
+
 
   utter_contact_email:
     - text: You can’t speak to a human directly in this chat, but you can email Vinay Singh, our Machine Learning engineer, at vinay@aider.ai for any feedback regarding this chatbot.

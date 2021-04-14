@@ -11,8 +11,12 @@ rules:
     condition:
       - active_loop: diagnosis_form
     steps:
+      - action: diagnosis_form
       - active_loop: null
+      - slot_was_set:
+        - requested_slot: null
       - action: action_submit_diagnosis_form
+      - action: utter_thankful
 
   - rule: continue diagnosis form
     condition:

@@ -8,8 +8,6 @@ pipeline:
     case_sensitive: False
   - name: SpacyTokenizer
   - name: sentiment.SentimentAnalyzer
-  - name: printer.Printer
-    alias: after sentiment analyzer
   - name: SpacyFeaturizer
     "pooling": "mean"
   - name: RegexFeaturizer
