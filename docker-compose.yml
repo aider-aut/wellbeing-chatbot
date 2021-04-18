@@ -2,12 +2,35 @@ version: '3.0'
 services:
   rasa:
     image: rasa/rasa:2.5.0-full
+    environment:
+      - PYTHONPATH=/app/
+      - PYTHONPATH=/app/custom_component
     ports:
-      - 5005:5005
+      - "5005:5005"
     volumes:
       - ./:/app
+      - ./config:/app/config
     command:
       - run
+      - --cors
+      - "*"
+      - -m
+      - models
+      - --enable-api
+      - --endpoints
+      - endpoints.yml
+      - --debug
+      - --log-file
+      - out.log
   app:
-    image: ${{ github.sha }}
-    expose: 5055
+    image: dmznoo/wellbeing-chatbot:v0.1
+    environment:
+      - PYTHONPATH=/app/
+      - PYTHONPATH=/app/custom_component
+    volumes:
+      - ./data/lookups:/app/data/lookups
+      - ./actions:/app/actions
+      - ./custom_component/sentiment.py:/app/custom_component/sentiment.py
+      - ./custom_component/model.h5:/app/custom_component/model.h5
+      - ./custom_component/tokenizer.pkl:/app/custom_component/tokenizer.pkl
+    expose: ["5055"]

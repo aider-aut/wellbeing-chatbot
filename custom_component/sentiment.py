@@ -15,18 +15,18 @@ from rasa.shared.nlu.training_data.message import Message
 from rasa.shared.nlu.training_data.training_data import TrainingData
 import platform
 import pickle
+import os
 
+# myMacPath = "/Users/daniel/Projects/rasa/wellbeingchatbot/custom_component/"
+# myWindowsPath = "C:\\Users\Daniel\\Projects\wellbeing-chatbot\\custom_component\\"
+# path = ''
+# if(platform.system() == "Darwin"):
+#     path = myMacPath
+# elif (platform.system() == "Windows"):
+#     path = myWindowsPath
 
-myMacPath = "/Users/daniel/Projects/rasa/wellbeingchatbot/custom_component/"
-myWindowsPath = "C:\\Users\Daniel\\Projects\wellbeing-chatbot\\custom_component\\"
-path = ''
-if(platform.system() == "Darwin"):
-    path = myMacPath
-elif (platform.system() == "Windows"):
-    path = myWindowsPath
-
-model = load_model(path + "model.h5")
-with open(path + 'tokenizer.pkl','rb') as f:
+model = load_model(os.path.abspath(os.getcwd()) + "/custom_component/model.h5")
+with open(os.path.abspath(os.getcwd()) + '/custom_component/tokenizer.pkl','rb') as f:
     tokenizer = pickle.load(f)
 
 POSITIVE = "POSITIVE"
