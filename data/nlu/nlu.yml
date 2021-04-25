@@ -8,6 +8,7 @@ nlu:
       - hello
       - hi
       - hi hi
+      - hihihi
       - hi there
       - hi again
       - hello there
@@ -532,12 +533,20 @@ nlu:
 
   - intent: indicate_emotions_of_concern
     examples: |
+      - i'm [sad](emotions)
+      - i'm [angry](emotions)
+      - i'm [mad](emotions)
+      - i'm [frustrated](emotions)
       - im [sad](emotions)
       - im [angry](emotions)
       - im [mad](emotions)
+      - im [frustrated](emotions)
       - i am [scared](emotions)
       - i am feeling [fearful](emotions)
       - i am [sad](emotions)
+      - i am [angry](emotions)
+      - i am [mad](emotions)
+      - i am feeling [mad](emotions)
       - i am feeling [angry](emotions)
       - i am feeling [sad](emotions)
       - i am feeling [disgust](emotions)

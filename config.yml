@@ -17,12 +17,8 @@ pipeline:
   - name: DIETClassifier
     entity_recognition: False
     model_confidence: linear_norm
-    hidden_layers_sizes:
-      text: [256, 128]
-    number_of_transformer_layers: 5
     constrain_similarities: True
-    epochs: 200
-    ranking_length: 5
+    epochs: 300
   - name: CRFEntityExtractor
     features:
       [

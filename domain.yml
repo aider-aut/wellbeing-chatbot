@@ -16,6 +16,7 @@ intents:
   - unclear_answer
   - out_of_scope
   - job_function
+  - indicate_coping_strategy
   - enter_data:
       use_entities: []
 
@@ -97,10 +98,14 @@ responses:
     - text: "I am a bot, powered by Rasa."
 
   utter_quote_about_sadness:
-    - text: "Here is a quote about sadness: Tears are words that need to be written. -Paulo Coelho."
+    - text: "Here is a quote about sadness:
+    \nTears are words that need to be written.
+    \n-Paulo Coelho."
 
   utter_quote_about_anger:
-    - text: "Here is a quote about anger: Where there is anger, there is always pain underneath. -Eckhart Tolle."
+    - text: "Here is a quote about anger:
+    \nWhere there is anger, there is always pain underneath.
+    \n-Eckhart Tolle."
 
   utter_ask_for_clarification:
     - text: "Can you be more specific?"
@@ -113,19 +118,42 @@ responses:
 
   utter_ask_area_of_life:
     - text: "What area of your life had been affected by your current state of mind?"
-  
+      buttons:
+      - title: "Sleep"
+        payload: '/indicate_area_of_life{{"area_of_life":"sleep"}}'
+      - title: "Appetite"
+        payload: '/indicate_area_of_life{{"area_of_life":"appetite"}}'
+      - title: "Work"
+        payload: '/indicate_area_of_life{{"area_of_life":"work"}}'
+      - title: "Relationships"
+        payload: '/indicate_area_of_life{{"area_of_life":"relationships"}}'
+
   utter_ask_unhealthy_thoughts:
     - text: "Are you having unhealthy thoughts?"
-  
+      buttons:
+      - title: "Yes"
+        payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"yes"}}'
+      - title: "No"
+        payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"no"}}'
   utter_ask_coping_strategy:
-    - text: "Here are some common coping strategies that people do to deal with their personal struggles. 
-    \nDo you find yourself doing any of such activities?"
+    - text: "Here are some common coping strategies that people do to deal with their personal struggles.\nDo you find yourself doing any of such activities?"
+      buttons:
+      - title: "Denial"
+        payload: '/indicate_coping_strategy{{"coping_strategy":"denial"}}'
+      - title: "Self-blame"
+        payload: '/indicate_coping_strategy{{"coping_strategy":"self-blame"}}'
+      - title: "Venting"
+        payload: '/indicate_coping_strategy{{"coping_strategy":"venting"}}'
+      - title: "None of the above"
+        payload: '/indicate_coping_strategy{{"coping_strategy":"none"}}'
+      - title: "All of the above"
+        payload: '/indicate_coping_strategy{{"coping_strategy":"denial, self-blame, venting"}}'
 
   utter_ask_for_psychologist:
     - text: "Would you like to talk to a psychologist?"
 
   utter_ask_continue_diagnosis:
-    - text: Do you still want to continue with the diagnosis?
+    - text: Would you still want to continue with the diagnosis?
   
   utter_default:
     - text: Sorry, I didn't get that 🤷. Could you please rephrase?

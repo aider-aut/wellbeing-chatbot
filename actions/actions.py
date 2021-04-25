@@ -57,7 +57,11 @@ class ActionClarifyEmotions(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         emotion = tracker.get_slot("emotions")
         dispatcher.utter_message(
-            text="Am I correct in that you are feeling '{}'?".format(emotion))
+            text="Just confirming what you have said, am I correct that you are feeling '{}'?".format(emotion))
+        dispatcher.utter_message(buttons=[
+            {"payload": "/affirm", "title": "Yes"},
+            {"payload": "/deny", "title": "No"},
+        ])
         return []
 
 
@@ -73,7 +77,7 @@ class ActionWhyEmotions(Action):
         emotion = tracker.get_slot("emotions")
 
         dispatcher.utter_message(
-            text="Would you like to share with me for the reason that you are feeling '{}'?".format(emotion))
+            text="If you would like to share with me, what would be the reason that you are feeling '{}'?".format(emotion))
 
         return []
 
@@ -103,7 +107,6 @@ class ActionResponseToEmotions(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         emotion = tracker.get_slot("emotions")
-        dispatcher.utter_message(text="emotion: {}".format(emotion))
         dispatcher.utter_message(template="utter_sorry_to_hear")
         dispatcher.utter_message(template="utter_cheer_up")
         if (emotion in SAD):

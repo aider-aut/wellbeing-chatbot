@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   rasa:
-    image: rasa/rasa:2.5.0-full
+    image: rasa/rasa:2.5.0-spacy-en
     environment:
       - PYTHONPATH=/app/
       - PYTHONPATH=/app/custom_component
