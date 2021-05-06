@@ -11,7 +11,7 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet, EventType, ConversationPaused, UserUtteranceReverted
+from rasa_sdk.events import SlotSet, EventType, ConversationPaused, UserUtteranceReverted, AllSlotsReset
 
 
 def _ReadLookUps(path):
@@ -45,7 +45,7 @@ class ActionSubmitDiagnosisForm(Action):
         dispatcher.utter_message(
             text="unhealthy thoughts: {}".format(unhealthy_thoughts))
 
-        return []
+        return [AllSlotsReset()]
 
 
 class ActionClarifyEmotions(Action):

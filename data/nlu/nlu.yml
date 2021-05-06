@@ -7,6 +7,8 @@ nlu:
       - hey hey
       - hello
       - hi
+      - hi,
+      - hi!
       - hi hi
       - hihihi
       - hi there
@@ -21,6 +23,22 @@ nlu:
       - goodafternoon
       - let's go
       - hey dude
+      - hey there
+      - heyo
+      - hi !
+      - hello?
+      - ola
+      - hi again
+      - yo
+      - yo
+      - what up
+      - whats up
+      - sup?
+      - sup
+      - whats popping
+      - hey man
+      - hello hi
+
 
   - intent: giving_name
     examples: |
@@ -568,6 +586,11 @@ nlu:
       - because i am running out of money
       - because i ran out of money
       - because i have no money
+      - because i can't pay rent
+      - because i cannot pay rent
+      - because i don't have any money
+      - because of divorce
+      - because I might lose my business
       - because i am going through a divorce
       - because my wife has cheated on me
       - because my wife has left me
