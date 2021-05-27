@@ -8,10 +8,26 @@
 # This is a simple example for a custom action which utters "Hello World!"
 
 from typing import Any, Text, Dict, List
-
-from rasa_sdk import Action, Tracker
+import os
+from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet, EventType, ConversationPaused, UserUtteranceReverted, AllSlotsReset
+from rasa_sdk.events import \
+    SlotSet, \
+    EventType, \
+    ConversationPaused, \
+    UserUtteranceReverted, \
+    AllSlotsReset, \
+    FollowupAction
+from rasa_sdk.types import DomainDict
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.Certificate(os.path.abspath(os.getcwd()) + '/actions/serviceAccountKey.json')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+WELLBEING_COLLECTION = 'wellbeing'
+USERS_COLLECTION = 'users'
 
 
 def _ReadLookUps(path):
@@ -25,20 +41,45 @@ ANGRY = _ReadLookUps("data/lookups/angry.txt")
 SAD = _ReadLookUps("data/lookups/sad.txt")
 
 
+# class ValidateDiagnosisForm(FormValidationAction):
+#     def name(self) -> Text:
+#         return "validate_diagnosis_form"
+#
+#     def validate_unhealthy_thoughts(
+#         self,
+#         value: Text,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: DomainDict,
+#     ) -> Dict[Text, Any]:
+#         intent = tracker.latest_message["intent"].get("name")
+#         if intent == 'affirm':
+#             return [FollowupAction('')]
+
+
 class ActionSubmitDiagnosisForm(Action):
     def name(self) -> Text:
         return "action_submit_diagnosis_form"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]
     ) -> List[EventType]:
         area_of_life = tracker.get_slot("area_of_life")
         coping_strategy = tracker.get_slot("coping_strategy")
         unhealthy_thoughts = tracker.get_slot("unhealthy_thoughts")
-
+        wellbeing_ref = db.collection(WELLBEING_COLLECTION).document(tracker.sender_id)
+        wellbeing_ref.set({'area_of_life': area_of_life}, merge=True)
+        wellbeing_ref.set({'coping_strategy': coping_strategy}, merge=True)
+        if unhealthy_thoughts != 'None':
+            dispatcher.utter_message(
+                text="Everyone has thoughts such as '{}' from time to time..".format(unhealthy_thoughts))
+            dispatcher.utter_message(
+                text='Share your feelings with someone close to you if you can and socialize more often.')
+            dispatcher.utter_message('It will help you to navigate away from having these thoughts.')
+            wellbeing_ref.set({'unhealthy_thoughts': unhealthy_thoughts}, merge=True)
         dispatcher.utter_message(text="area of life: {}".format(area_of_life))
         dispatcher.utter_message(
             text="coping strategy: {}".format(coping_strategy))
@@ -48,16 +89,21 @@ class ActionSubmitDiagnosisForm(Action):
         return [AllSlotsReset()]
 
 
-class ActionClarifyEmotions(Action):
+class ActionClarifyToUser(Action):
     def name(self) -> Text:
-        return "action_clarify_emotions"
+        return "action_clarify_to_user"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         emotion = tracker.get_slot("emotions")
-        dispatcher.utter_message(
-            text="Just confirming what you have said, am I correct that you are feeling '{}'?".format(emotion))
+        if emotion != 'None' or emotion.length != 0:
+            dispatcher.utter_message(
+                text="Just confirming what you have said, am I correct that you are feeling '{}'?".format(emotion))
+        else:
+            dispatcher.utter_message(template="utter_sorry_to_hear")
+            dispatcher.utter_message(
+                text="Would you like to talk to me about the issue you are having?")
         dispatcher.utter_message(buttons=[
             {"payload": "/affirm", "title": "Yes"},
             {"payload": "/deny", "title": "No"},
@@ -65,19 +111,25 @@ class ActionClarifyEmotions(Action):
         return []
 
 
-class ActionWhyEmotions(Action):
-
+class ActionAskWhyFeelingNegative(Action):
     def name(self) -> Text:
-        return "action_why_emotions"
+        return "action_why_feeling_negative"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
         emotion = tracker.get_slot("emotions")
-
-        dispatcher.utter_message(
-            text="If you would like to share with me, what would be the reason that you are feeling '{}'?".format(emotion))
+        if emotion != "None":
+            dispatcher.utter_message(
+                text="If you would like to share with me, what would be the reason that you are feeling '{}'?".format(
+                    emotion))
+            wellbeing_ref = db.collection(WELLBEING_COLLECTION).document(tracker.sender_id)
+            user_ref = db.collection(USERS_COLLECTION).document(tracker.sender_id)
+            user_ref.update({'emotion': emotion})
+            wellbeing_ref.update({'emotion': firestore.ArrayUnion([emotion])})
+        else:
+            dispatcher.utter_message(
+                text="If you would like to share with me, what would be the reason that you are feeling this way?")
 
         return []
 
@@ -97,10 +149,10 @@ class ActionGreetingWithName(Action):
         return []
 
 
-class ActionResponseToEmotions(Action):
+class ActionResponseToFeelingNegative(Action):
 
     def name(self) -> Text:
-        return "action_response_to_emotions"
+        return "action_response_to_feeling_negative"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -109,10 +161,11 @@ class ActionResponseToEmotions(Action):
         emotion = tracker.get_slot("emotions")
         dispatcher.utter_message(template="utter_sorry_to_hear")
         dispatcher.utter_message(template="utter_cheer_up")
-        if (emotion in SAD):
-            dispatcher.utter_message(template="utter_quote_about_sadness")
-        elif (emotion in ANGRY):
-            dispatcher.utter_message(template="utter_quote_about_anger")
+        if emotion != 'None':
+            if emotion in SAD:
+                dispatcher.utter_message(template="utter_quote_about_sadness")
+            elif emotion in ANGRY:
+                dispatcher.utter_message(template="utter_quote_about_anger")
         return []
 
 
@@ -121,26 +174,25 @@ class ActionSetEmotion(Action):
         return "action_set_emotion"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[EventType]:
         emotion = tracker.get_slot("emotions")
         return [SlotSet('emotions', emotion)]
 
 
-class ActionDefaultFallback(Action):
-    def name(self) -> Text:
-        return "action_default_fallback"
-
-    def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-    ) -> List[EventType]:
-
+# class ActionDefaultFallback(Action):
+#     def name(self) -> Text:
+#         return "action_default_fallback"
+#
+#     def run(
+#             self,
+#             dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any],
+#     ) -> List[EventType]:
         # # Fallback caused by TwoStageFallbackPolicy
         # if (
         #     len(tracker.events) >= 4
@@ -153,5 +205,6 @@ class ActionDefaultFallback(Action):
 
         # Fallback caused by Core
         # else:
-        dispatcher.utter_message(template="utter_default")
-        return [UserUtteranceReverted()]
+        # dispatcher.utter_message(template="utter_default")
+        # return [UserUtteranceReverted()]
+#

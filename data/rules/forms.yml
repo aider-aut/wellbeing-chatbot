@@ -3,7 +3,7 @@ rules:
   - rule: activate diagnosis form
     steps:
       - intent: provide_reason
-      - action: action_response_to_emotions
+      - action: action_response_to_feeling_negative
       - action: diagnosis_form
       - active_loop: diagnosis_form
 

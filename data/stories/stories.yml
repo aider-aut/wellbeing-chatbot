@@ -7,44 +7,40 @@ stories:
       - action: action_set_emotion
       - action: utter_happy
 
-  - story: greet + diagnosis + affirm + reason
+  - story: greet + user_response + affirm + reason
     steps:
       - intent: greet
       - action: utter_greet
-      - intent: indicate_emotions_of_concern
-      - action: action_clarify_emotions
+      - intent: indicate_reasons_of_concern
+      - action: action_clarify_to_user
       - intent: affirm
-      - action: action_why_emotions
+      - action: action_why_feeling_negative
       - intent: provide_reason
-      - action: action_response_to_emotions
+      - action: action_response_to_feeling_negative
       - action: diagnosis_form
       - active_loop: diagnosis_form
 
-  - story: diagnosis + affirm + reason
+
+  - story: greet + reasons_of_concern + deny
     steps:
-      - intent: indicate_emotions_of_concern
-      - action: action_clarify_emotions
-      - intent: affirm
-      - action: action_why_emotions
-      - intent: provide_reason
-      - action: action_response_to_emotions
-      - action: diagnosis_form
-      - active_loop: diagnosis_form
+      - intent: greet
+      - action: utter_greet
+      - intent: indicate_reasons_of_concern
+      - action: action_clarify_to_user
+      - intent: deny
+      - action: utter_ask_more_details
+
   
-  - story: diagnosis + affirm + no reason
+  - story: diagnosis + affirm + no_reason
     steps:
-      - intent: indicate_emotions_of_concern
-      - action: action_clarify_emotions
+      - intent: greet
+      - action: utter_greet
+      - intent: indicate_reasons_of_concern
+      - action: action_clarify_to_user
       - intent: affirm
-      - action: action_why_emotions
+      - action: action_why_feeling_negative
       - intent: human_handoff
       - action: utter_contact_email
 
-  - story: diagnosis + deny
-    steps: 
-      - intent: indicate_emotions_of_concern
-      - action: action_clarify_emotions
-      - intent: deny
-      - action: utter_ask_more_details
   
 

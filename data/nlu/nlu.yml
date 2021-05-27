@@ -549,7 +549,7 @@ nlu:
       - let me speak to a real person please
       - i want to talk to a real person
 
-  - intent: indicate_emotions_of_concern
+  - intent: indicate_reasons_of_concern
     examples: |
       - i'm [sad](emotions)
       - i'm [angry](emotions)
@@ -576,6 +576,17 @@ nlu:
       - i am feeling [horrified](emotions)
       - i am feeling [excited](emotions)
       - i am feeling [craving](emotions)
+      - im having a bad day
+      - i am having a bad day
+      - i am sick of working
+      - i am depressed
+      - im not doing so good
+      - i hate everything
+      - i hate working
+      - i hate what i'm doing
+      - i feel demotivated
+      - i am feeling down
+      - im tired of working
 
   - intent: provide_reason
     examples: |

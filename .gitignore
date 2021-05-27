@@ -4,3 +4,4 @@ Pipfile
 rasa_core.log
 custom_component
 venv
+/actions/serviceAccountKey.json

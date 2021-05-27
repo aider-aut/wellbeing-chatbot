@@ -9,7 +9,7 @@ intents:
   - thankful
   - mood_great
   - emotions_feedback
-  - indicate_emotions_of_concern
+  - indicate_reasons_of_concern
   - provide_reason
   - human_handoff
   - bot_challenge
@@ -31,11 +31,11 @@ entities:
   - unhealthy_thoughts
 
 actions:
-  - action_why_emotions
-  - action_response_to_emotions
+  - action_why_feeling_negative
+  - action_response_to_feeling_negative
   - action_set_emotion
   - action_greeting_with_name
-  - action_clarify_emotions
+  - action_clarify_to_user
   - action_submit_diagnosis_form
   - action_default_fallback
 
@@ -44,6 +44,9 @@ slots:
     type: text
     influence_conversation: true
   coping_strategy:
+    type: text
+    influence_conversation: true
+  presence_of_unhealthy_thoughts:
     type: text
     influence_conversation: true
   unhealthy_thoughts:
@@ -65,6 +68,15 @@ forms:
     - type: from_text
 
 responses:
+  utter_introduction:
+    - text: "Hi there, Welcome!\nHow are you feeling today?"
+
+  utter_closing_wellbeing:
+    - text: "Well, I hope you get better!"
+
+  utter_continue:
+    - text: "Ok, please continue"
+
   utter_greet:
     - text: "Hey! How are you?"
 
@@ -72,8 +84,8 @@ responses:
     - text: "Sorry to hear that."
 
   utter_ask_more_details:
-    - text: Could you be more specific?
-    - text: Can you tell me more?
+    - text: "Could you provide more details?"
+    - text: "Can you tell me more?"
 
   utter_cheer_up:
     - text: "Hey, remember that at some point, things will likely to get better."
@@ -129,12 +141,19 @@ responses:
         payload: '/indicate_area_of_life{{"area_of_life":"relationships"}}'
 
   utter_ask_unhealthy_thoughts:
-    - text: "Are you having unhealthy thoughts?"
+    - text: "Have you been having these thoughts?"
       buttons:
-      - title: "Yes"
-        payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"yes"}}'
-      - title: "No"
-        payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"no"}}'
+        - title: 'I am not worth anything.'
+          payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"low-self-esteem"}}'
+        - title: 'I have never accomplished anything.'
+          payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"low-self-esteem"}}'
+        - title: 'I am stupid'
+          payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"low-self-esteem"}}'
+        - title: 'I am a jerk.'
+          payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"low-self-esteem"}}'
+        - title: 'None of the above'
+          payload: '/indicate_unhealthy_thoughts{{"unhealthy_thoughts":"None"}}'
+
   utter_ask_coping_strategy:
     - text: "Here are some common coping strategies that people do to deal with their personal struggles.\nDo you find yourself doing any of such activities?"
       buttons:
@@ -148,9 +167,6 @@ responses:
         payload: '/indicate_coping_strategy{{"coping_strategy":"none"}}'
       - title: "All of the above"
         payload: '/indicate_coping_strategy{{"coping_strategy":"denial, self-blame, venting"}}'
-
-  utter_ask_for_psychologist:
-    - text: "Would you like to talk to a psychologist?"
 
   utter_ask_continue_diagnosis:
     - text: Would you still want to continue with the diagnosis?
