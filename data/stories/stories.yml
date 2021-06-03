@@ -1,6 +1,10 @@
 version: "2.0"
 
 stories:
+  - story: greet
+    steps:
+      - intent: greet
+      - action: utter_greet
   - story: happy path
     steps:
       - intent: mood_great
@@ -14,12 +18,11 @@ stories:
       - intent: indicate_reasons_of_concern
       - action: action_clarify_to_user
       - intent: affirm
-      - action: action_why_feeling_negative
+      - action: action_set_emotion
       - intent: provide_reason
       - action: action_response_to_feeling_negative
       - action: diagnosis_form
       - active_loop: diagnosis_form
-
 
   - story: greet + reasons_of_concern + deny
     steps:
@@ -29,18 +32,6 @@ stories:
       - action: action_clarify_to_user
       - intent: deny
       - action: utter_ask_more_details
-
-  
-  - story: diagnosis + affirm + no_reason
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: indicate_reasons_of_concern
-      - action: action_clarify_to_user
-      - intent: affirm
-      - action: action_why_feeling_negative
-      - intent: human_handoff
-      - action: utter_contact_email
 
   
 

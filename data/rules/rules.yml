@@ -1,10 +1,5 @@
 version: "2.0"
 rules:
-  - rule: greet
-    steps:
-      - intent: greet
-      - action: utter_greet
-
   - rule: giving name
     steps:
       - intent: giving_name
@@ -34,3 +29,8 @@ rules:
     steps:
       - intent: nlu_fallback
       - action: utter_ask_to_rephrase
+
+  - rule: handle human handoff
+    steps:
+      - intent: human_handoff
+      - action: utter_contact_email

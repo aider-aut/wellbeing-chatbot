@@ -20,6 +20,7 @@ USER root
 
 # install dependencies
 RUN pip install -U pip setuptools wheel
+RUN pip install firebase_admin
 RUN pip install -U spacy
 RUN pip install rasa[spacy]
 RUN python -m spacy download en_core_web_md
